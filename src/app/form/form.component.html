@@ -1,0 +1,79 @@
+<div class="container mt-5">
+    <!-- Form Section -->
+    <div class="card shadow-sm">
+      <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">Contact Form</h4>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input
+              id="name"
+              formControlName="name"
+              type="text"
+              class="form-control"
+              [class.is-invalid]="myForm.get('name')?.invalid && myForm.get('name')?.touched"
+            />
+            <div class="invalid-feedback">Name is required.</div>
+          </div>
+  
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input
+              id="email"
+              formControlName="email"
+              type="email"
+              class="form-control"
+              [class.is-invalid]="myForm.get('email')?.invalid && myForm.get('email')?.touched"
+            />
+            <div class="invalid-feedback">Enter a valid email.</div>
+          </div>
+  
+          <div class="mb-3">
+            <label for="body" class="form-label">body</label>
+            <textarea
+              id="body"
+              formControlName="body"
+              rows="4"
+              class="form-control"
+              [class.is-invalid]="myForm.get('body')?.invalid && myForm.get('body')?.touched"
+            ></textarea>
+            <div class="invalid-feedback">Message is required.</div>
+          </div>
+  
+          <div class="d-grid">
+            <button type="submit" class="btn btn-primary" [disabled]="myForm.invalid">
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="card-footer text-center" *ngIf="submissionResult">
+        <p class="text-muted mb-0">{{ submissionResult }}</p>
+      </div>
+    </div>
+  
+    <!-- Table Section -->
+  <div class="mt-5" *ngIf="isTableVisible">
+    <h5 class="text-center">Submitted Data</h5>
+    <table class="table table-bordered table-hover">
+      <thead class="table-light">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Message</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of submittedData">
+          <td>{{ data.id }}</td>
+          <td>{{ data.name || 'N/A' }}</td>
+          <td>{{ data.email || 'N/A' }}</td>
+          <td>{{ data.body || 'N/A' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
